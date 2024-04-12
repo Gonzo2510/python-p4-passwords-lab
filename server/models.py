@@ -8,11 +8,11 @@ class User(db.Model, SerializerMixin):
 
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String)
-    _password_hash = db.Column(db.String)
+    _password_hash = db.Column(db.String, nullable=False)
 
     @hybrid_property
     def password_hash(self):
-        raise Exception('Password hashes may not be viewed.')
+        return self._password_hash
 
     @password_hash.setter
     def password_hash(self, password):
